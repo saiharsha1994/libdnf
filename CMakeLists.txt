@@ -39,6 +39,7 @@ option(ENABLE_DNF5_CONF_REPOS_OVERRIDE "Build with support for libdnf5 repositor
 option(ENABLE_RHSM_SUPPORT "Build with Red Hat Subscription Manager support?" OFF)
 option(ENABLE_SOLV_URPMREORDER "Build with support for URPM-like solution reordering?" OFF)
 option(WITH_TESTS "Enables unit tests" ON)
+set(AUTO_IMPORT_KEYS_DIR "/etc/pki/rpm-gpg" CACHE PATH "Directory of OpenPGP keys trusted by auto_import_local_keys")
 
 
 # build options - debugging
@@ -140,6 +141,10 @@ add_definitions(-DG_LOG_DOMAIN="libdnf")
 
 # tests
 add_definitions(-DTESTDATADIR="${CMAKE_SOURCE_DIR}/data/tests")
+
+# Directory of OpenPGP keys that the auto_import_local_keys option imports without asking for a
+# confirmation.
+add_definitions(-DAUTO_IMPORT_KEYS_DIR="${AUTO_IMPORT_KEYS_DIR}")
 
 # Use libdnf5 drop-in configuration directories including distribution configuration.
 if(ENABLE_DNF5_CONF_DROP_IN)
