@@ -112,6 +112,11 @@ public:
     // Converts configuration string of proxy authorization methods to librepo enum.
     static LrAuth stringToProxyAuthMethods(const std::string & proxy_auth_method) noexcept;
 
+    // Implements Repo::isKeyAutoImportable() with the trusted keys directory as a parameter.
+    // The configuration is not const because ConfigRepo::getMainConfig() is not const.
+    static bool isKeyAutoImportable(ConfigRepo & conf, const std::string & keyUrl,
+                                    const std::string & keysDir);
+
     std::string id;
     Type type;
     std::unique_ptr<ConfigRepo> conf;
